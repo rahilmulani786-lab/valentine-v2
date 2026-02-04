@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>hey nia ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ffd6e0, #fff1f5);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #ff4d6d;
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+      height: 60px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .no {
+      background: #eee;
+      color: #555;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(90px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      opacity: 0.9;
+      animation: fall 1.2s linear forwards;
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(300px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>hey nia ❤️</h1>
+
+    <p>
+      I was thinking…<br><br>
+      <strong>Will you be my Valentine nia?</strong> 💕
+    </p>
+
+    <div class="buttons">
+      <button class="yes" onclick="sayYes()">Yes 🥰</button>
+      <button class="no" id="noBtn">Let me think 🤔</button>
+    </div>
+
+    <p id="response" class="hidden" style="margin-top: 28px; font-size: 1.2rem;">
+      Yay!! 💖 It’s a date!<br><br>
+      Valentine’s Day with me 🥰
+    </p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const card = document.querySelector(".card");
+
+    noBtn.addEventListener("mouseenter", () => {
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width - 20;
+      const maxY = cardRect.height - btnRect.height - 20;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.transform = "none";
+    });
+
+    function sayYes() {
+      document.querySelector(".buttons").style.display = "none";
+      document.getElementById("response").classList.remove("hidden");
+      launchConfetti();
+    }
+
+    function launchConfetti() {
+      const colors = ["#ff4d6d", "#ffd6e0", "#ff9aa2", "#ffc8dd"];
+
+      for (let i = 0; i < 35; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * card.offsetWidth + "px";
+        confetti.style.top = "0px";
+        confetti.style.backgroundColor =
+          colors[Math.floor(Math.random() * colors.length)];
+        card.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1200);
+      }
+    }
+  </script>
+
+</body>
+</html>
