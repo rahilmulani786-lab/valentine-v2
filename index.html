@@ -46,7 +46,7 @@
     .buttons {
       margin-top: 30px;
       position: relative;
-      height: 90px;
+      height: 80px;
     }
 
     button {
@@ -126,9 +126,8 @@
   <script>
     const noBtn = document.getElementById("noBtn");
     const card = document.querySelector(".card");
-    let activated = false;
 
-    function moveButton() {
+    noBtn.addEventListener("mouseenter", () => {
       const cardRect = card.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
 
@@ -141,17 +140,6 @@
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
       noBtn.style.transform = "none";
-    }
-
-    // First hover activates dodge mode
-    noBtn.addEventListener("mouseenter", () => {
-      activated = true;
-      moveButton();
-    });
-
-    // After activation, keep dodging
-    noBtn.addEventListener("mouseover", () => {
-      if (activated) moveButton();
     });
 
     function sayYes() {
