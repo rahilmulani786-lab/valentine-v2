@@ -47,7 +47,7 @@
 
     .btn {
       border: none;
-      padding: 14px 28px;
+      padding: 14px 30px;
       font-size: 16px;
       border-radius: 999px;
       cursor: pointer;
@@ -84,17 +84,17 @@
       padding: 12px 22px;
       border-radius: 999px;
       left: 50%;
-      top: 100px;
+      top: 110px;
       transform: translateX(-50%);
-      z-index: 1;
       touch-action: none;
     }
 
-    #response {
-      margin-top: 20px;
-      font-size: 20px;
+    #finalMessage {
+      font-size: 22px;
       color: #ff4d6d;
       font-weight: 600;
+      line-height: 1.4;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -111,16 +111,16 @@
 
     <!-- PAGE 2 -->
     <div id="page2" class="hidden">
-      <h1>hey nia ❤️</h1>
-      <p>Will you be my Valentine nia? 💕</p>
+      <h1 id="title2">hey nia ❤️</h1>
+      <p id="question">Will you be my Valentine nia? 💕</p>
 
       <div class="buttons" id="buttonArea">
         <button id="yesBtn" onclick="sayYes()">Yes 🥰</button>
         <button id="noBtn">Let me think 🤔</button>
       </div>
 
-      <div id="response" class="hidden">
-        Yay!! 💖 It’s a date 😘
+      <div id="finalMessage" class="hidden">
+        Yay!! 💖 It’s a date — thank u for making me the happiest man alive ❤️
       </div>
     </div>
 
@@ -133,15 +133,17 @@
     }
 
     function sayYes() {
+      document.getElementById("title2").style.display = "none";
+      document.getElementById("question").style.display = "none";
       document.querySelector(".buttons").style.display = "none";
-      document.getElementById("response").classList.remove("hidden");
+      document.getElementById("finalMessage").classList.remove("hidden");
     }
 
     const noBtn = document.getElementById("noBtn");
     const area = document.getElementById("buttonArea");
 
     function moveButton() {
-      const padding = 20;
+      const padding = 16;
 
       const maxX = area.clientWidth - noBtn.offsetWidth - padding;
       const maxY = area.clientHeight - noBtn.offsetHeight - padding;
@@ -156,7 +158,7 @@
     // Desktop
     noBtn.addEventListener("mouseenter", moveButton);
 
-    // iOS + mobile (unlimited)
+    // iOS + mobile (never freezes)
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       moveButton();
