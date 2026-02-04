@@ -46,7 +46,7 @@
     .buttons {
       margin-top: 30px;
       position: relative;
-      height: 80px;
+      height: 90px;
     }
 
     button {
@@ -56,6 +56,7 @@
       border-radius: 30px;
       cursor: pointer;
       white-space: nowrap;
+      transition: left 0.12s ease, top 0.12s ease;
     }
 
     .yes {
@@ -127,8 +128,12 @@
     const noBtn = document.getElementById("noBtn");
     const card = document.querySelector(".card");
 
-    // Move the "No" button whenever the mouse gets close anywhere in the card
+    let lastMove = 0;
+
     card.addEventListener("mousemove", (e) => {
+      const now = Date.now();
+      if (now - lastMove < 180) return; // ⏱ throttle
+
       const btnRect = noBtn.getBoundingClientRect();
       const cardRect = card.getBoundingClientRect();
 
@@ -140,17 +145,25 @@
 
       const distance = Math.hypot(mouseX - btnCenterX, mouseY - btnCenterY);
 
-      // Sensitivity radius (increase if you want it crazier)
       if (distance < 140) {
-        const maxX = cardRect.width - btnRect.width - 20;
-        const maxY = cardRect.height - btnRect.height - 20;
+        let x, y;
+        let attempts = 0;
 
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        do {
+          x = Math.random() * (cardRect.width - btnRect.width - 20);
+          y = Math.random() * (cardRect.height - btnRect.height - 20);
+          attempts++;
+        } while (
+          Math.hypot(
+            cardRect.left + x - mouseX,
+            cardRect.top + y - mouseY
+          ) < 120 && attempts < 10
+        );
 
         noBtn.style.left = `${x}px`;
         noBtn.style.top = `${y}px`;
         noBtn.style.transform = "none";
+        lastMove = now;
       }
     });
 
